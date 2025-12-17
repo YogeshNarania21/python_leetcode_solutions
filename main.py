@@ -100,6 +100,25 @@ class Solution:
                 stack.append(ch)
         return not stack
 
+#  Remove Duplicates from Sorted Array
+
+    def removeDuplicates(self, nums: List[int]) -> int:
+        stack = [nums[0]]
+        for i in range(1, len(nums)):
+            if nums[i-1] != nums[i]:
+                stack.append(nums[i])
+        print(stack)
+        return len(stack)
+    
+    def removeDuplicates_without_another_list(self, nums: List[int]) -> int:
+        k=1
+        for i in range(1, len(nums)):
+            if nums[i-1] != nums[i]:
+                nums[k]  = nums[i]
+                k +=1
+            
+        return k
+
 ####################################### MEDIUM ############################################
 
 # Smooth descending periods problem
@@ -219,5 +238,5 @@ solution = Solution()
 #result = solution.removeSubfolders(["/a", "/a/b", "/c/d", "/c/d/e", "/c/f"])
 #result = solution.makeFancyString('Helllo Neeel')
 #result = solution.makeFancyString([5,2,1,2,5,2,1,2,5])
-#result = solution.maximumGain("cdbcbbaaabab",4,5)
+result = solution.removeDuplicates([0,0,0,1,1,3,3,3,4,4,5])
 print(f"result: {result}")
