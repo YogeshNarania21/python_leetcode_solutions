@@ -119,6 +119,49 @@ class Solution:
             
         return k
 
+# Remove Element
+
+    def removeElement(self, nums: List[int], val: int) -> int:
+        k=0
+        for i in range(len(nums)):
+            if nums[i] != val:
+                nums[k]=nums[i]
+                k +=1
+
+        return k
+
+# Find first occuraence in a string (Haystack-needle) 
+    def strStr(self, haystack: str, needle: str) -> int:
+        
+        h_len = len(haystack)
+        n_len = len(needle)
+
+        for i in range(h_len-n_len+1):
+            if haystack[i:i+n_len] == needle:
+                return i
+        return -1
+
+# Length of last word
+    
+    def lengthOfLastWord(self, s: str) -> int:
+        length = 0
+        i = len(s)-1
+        while i>=0 and s[i] == ' ':
+            i -=1
+        while i>=0 and s[i] != ' ':
+            i -=1
+            length +=1
+        return length
+
+    def plusOne(self, digits: List[int]) -> List[int]:
+            n = len(digits)
+            for i in range(n-1,-1,-1):
+                if(digits[i]<9):
+                    digits[i] +=1
+                    return digits
+                digits[i] = 0 
+            return [1] + digits
+
 ####################################### MEDIUM ############################################
 
 # Smooth descending periods problem
@@ -238,5 +281,5 @@ solution = Solution()
 #result = solution.removeSubfolders(["/a", "/a/b", "/c/d", "/c/d/e", "/c/f"])
 #result = solution.makeFancyString('Helllo Neeel')
 #result = solution.makeFancyString([5,2,1,2,5,2,1,2,5])
-result = solution.removeDuplicates([0,0,0,1,1,3,3,3,4,4,5])
+result = solution.plusOne([1,2,3,4])
 print(f"result: {result}")
