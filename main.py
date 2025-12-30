@@ -1,12 +1,10 @@
 #LeetCode problems
-
 class Solution:
 
 
 ######################################### EASY#############################################
 
 # Sum of 2 elements in Array
-
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         
         map = {}
@@ -119,7 +117,7 @@ class Solution:
             
         return k
 
-# Remove Element
+# Remove a given element from list
 
     def removeElement(self, nums: List[int], val: int) -> int:
         k=0
@@ -152,7 +150,7 @@ class Solution:
             i -=1
             length +=1
         return length
-
+# Plus 1 to the last digit of the array
     def plusOne(self, digits: List[int]) -> List[int]:
             n = len(digits)
             for i in range(n-1,-1,-1):
@@ -161,7 +159,71 @@ class Solution:
                     return digits
                 digits[i] = 0 
             return [1] + digits
+#Add Binary
+    def addBinary(self, a: str, b: str) -> str:
+        x = len(a)-1
+        y = len(b)-1
+        carry = 0
+        result = []
+        while x>=0 or y>=0 or carry>0:
+            total = carry
+            if x>=0:
+                total += int(a[x])
+                x -=1
+            if y>=0:
+                total += int(b[y])
+                y -=1
+            
+            i = total%2
+            result.append(str(i))
+            carry = total // 2
+        return ''.join(reversed(result))
 
+# Sqrt
+
+    def mySqrt(self, x: int) -> int:
+
+        if x<2:
+            return x
+
+        left,right = 2, x//2 # 2,4
+        while left <= right:
+            mid = left + (right - left)//2  #2
+            if mid*mid <x:
+                left = mid + 1  # 3
+            elif mid*mid>x:
+                right = mid -1 # 2
+            else:
+                return mid 
+        return right
+    
+# Ways to climb n stairs by taking 1 or 2 steps at a time
+    def climbStairs(self, n: int) -> int:
+        if n<=2:
+            return n
+        first,second = 1,2
+        for i in range (3, n+1):
+            current = first + second
+            first = second
+            second = current
+        return second
+    
+# simplified canonical path
+        def simplifyPath(self, path: str) -> str:
+            stack = []
+            for part in path.split("/"):
+                if part == "..":
+                    if stack:
+                        stack.pop()
+                elif part and part != ".":  
+                    stack.append(part)
+            return "/" + "/".join(stack)  
+
+
+
+
+
+                
 ####################################### MEDIUM ############################################
 
 # Smooth descending periods problem
@@ -190,7 +252,6 @@ class Solution:
     def makeFancyString(self, s: str) -> str:
         result =[s[0]]
         count = 1
-
         for i in range(1, len(s)):
             if s[i-1] == s[i]:
                 count +=1
@@ -231,6 +292,21 @@ class Solution:
             
         return max_sum
 
+#Longest Substring Without Repeating Characters
+ 
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        seen = set()
+        left = 0
+        max_len = 0
+    
+        for right in range(len(s)):
+            while s[right] in seen:
+                seen.remove(s[left])
+                left +=1
+
+            seen.add(s[right])
+            max_len = max(max_len, right-left +1)
+
 # Maximum Score From Removing Substrings
     def remove_pattern(self,s,first,second,points):
         stack = []
@@ -242,7 +318,7 @@ class Solution:
             else:
                 stack.append(ch)
         return score,"".join(stack)
-
+    
     def maximumGain(self, s: str, x: int, y: int) -> int:
         total = 0
         if x>y:
@@ -276,10 +352,12 @@ class Solution:
                 total_count +=1
         return total_count
 
+
+
 solution = Solution()
 #result = solution.getDescentPeriods([3,2,1,4])
 #result = solution.removeSubfolders(["/a", "/a/b", "/c/d", "/c/d/e", "/c/f"])
-#result = solution.makeFancyString('Helllo Neeel')
+result = solution.makeFancyString('Hellllo Neeel')
 #result = solution.makeFancyString([5,2,1,2,5,2,1,2,5])
-result = solution.plusOne([1,2,3,4])
+#result = solution.addBinary("101","111")
 print(f"result: {result}")
